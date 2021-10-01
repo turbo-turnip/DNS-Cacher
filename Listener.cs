@@ -5,8 +5,8 @@ namespace DNS_Cacher {
         public string[] exitCommands = new string[] {"exit", ".exit", "byebye", "quit", ".quit", "exit()"};
         public string currCommand;
 
-        public void listen() {
-            Console.Write("> ");
+        public void listen(string _currCache) {
+            Console.Write($"{_currCache}> ");
 
             currCommand = Console.ReadLine();
 

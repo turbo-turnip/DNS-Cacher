@@ -13,9 +13,12 @@ namespace DNS_Cacher {
 
             Listener listener = new Listener();
             Lookup DNSLookup = new Lookup();
+            CacheManager cache = new CacheManager();
+
+            cache.register("default-cache");
 
             while (true) {
-                listener.listen();
+                listener.listen(cache.currCache);
 
                 DNSEntry entry = DNSLookup.find(hostname: listener.currCommand);
 

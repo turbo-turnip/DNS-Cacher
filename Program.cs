@@ -12,13 +12,16 @@ namespace DNS_Cacher {
             Welcome();
 
             Listener listener = new Listener();
+            Lookup DNSLookup = new Lookup();
 
             while (true) {
                 listener.listen();
 
-                string currCommand = listener.currCommand;
+                DNSEntry entry = DNSLookup.find(hostname: listener.currCommand);
 
-                Console.WriteLine(currCommand);
+                if (entry != null) {
+                    entry.logInfo();
+                }
             }
         }
     }

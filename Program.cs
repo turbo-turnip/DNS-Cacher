@@ -21,12 +21,14 @@ namespace DNS_Cacher {
                 listener.listen(cache.currCache);
 
                 if (listener.currCommand.StartsWith("lookup")) {
-                    DNSEntry entry = DNSLookup.find(hostname: listener.currCommand.Substring(listener.currCommand.IndexOf(" ") + 1), cache: cache.currCache);
+                    DNSEntry entry = DNSLookup.find(hostname: listener.currCommand.Substring(listener.currCommand.IndexOf(" ") + 1), cache: cache.currCache, out bool alreadyCached);
 
                     if (entry != null) {
                         entry.logInfo();
 
-                        cache.cacheEntry(entry);
+                        if (!alreadyCached) {
+                            cache.cacheEntry(entry);
+                        }
                     }
                 } else if (listener.currCommand.StartsWith("current-cache")) { 
                     Console.Write("* ");

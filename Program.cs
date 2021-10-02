@@ -25,6 +25,8 @@ namespace DNS_Cacher {
 
                     if (entry != null) {
                         entry.logInfo();
+
+                        cache.cacheEntry(entry);
                     }
                 } else if (listener.currCommand.StartsWith("current-cache")) { 
                     Console.Write("* ");

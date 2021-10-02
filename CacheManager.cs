@@ -30,6 +30,24 @@ namespace DNS_Cacher {
             return false;
         }
 
+        public void cacheEntry(DNSEntry entry) {
+            Cache currentCache = null;
+
+            foreach (Cache c in caches) {
+                if (c.cacheName == currCache) {
+                    currentCache = c;
+                }
+            }
+
+            if (currentCache != null) {
+                if (currentCache.cache(entry)) {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine($"Successfully cached DNS record into {currentCache.cacheName}!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
+        }
+
         public void switchCache(string cacheName) {
             if (cacheExists(cacheName)) {
                 string oldCache = currCache;

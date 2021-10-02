@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace DNS_Cacher {
     public class CacheManager {
@@ -8,13 +9,13 @@ namespace DNS_Cacher {
         public string currCache;
 
         public CacheManager() {
-            string[] cacheFiles = Directory.GetFiles(@"/Users/atticus/Desktop/DNS-Cacher/", "*.json");
+            string[] cacheFiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.json");
 
             foreach (string cacheFile in cacheFiles) {
-                string cacheName = cacheFile.replace(".json", "");
+                string cacheName = Regex.Replace(cacheFile, $@"({Directory.GetCurrentDirectory().Replace(@"\", @"\\")})|(\.json)|(/)|(\\)", "");
 
-                if (!cacheExists(cacheName)) {
-
+                if (!cacheExists(cacheName) && cacheName != "default-cache") {
+                    caches.Add(new Cache(_cacheName: cacheName));
                 }
             }
         }

@@ -7,6 +7,18 @@ namespace DNS_Cacher {
         public List<Cache> caches = new List<Cache>();
         public string currCache;
 
+        public CacheManager() {
+            string[] cacheFiles = Directory.GetFiles(@"/Users/atticus/Desktop/DNS-Cacher/", "*.json");
+
+            foreach (string cacheFile in cacheFiles) {
+                string cacheName = cacheFile.replace(".json", "");
+
+                if (!cacheExists(cacheName)) {
+
+                }
+            }
+        }
+
         private bool cacheExists(string cacheName) {
             foreach (Cache c in caches) {
                 if (c.cacheName == cacheName) {
@@ -15,6 +27,21 @@ namespace DNS_Cacher {
             }
 
             return false;
+        }
+
+        public void switchCache(string cacheName) {
+            if (cacheExists(cacheName)) {
+                string oldCache = currCache;
+                currCache = cacheName;
+
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"Switched caches; from {oldCache} to {cacheName}");
+                Console.ForegroundColor = ConsoleColor.White;
+            } else {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Cache by the name {cacheName} does not exist.");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
 
         public int register(string cacheName) {

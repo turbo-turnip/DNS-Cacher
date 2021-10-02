@@ -6,7 +6,7 @@ using System.Net;
 
 namespace DNS_Cacher {
     public class Lookup {
-        public DNSEntry find(string hostname) {
+        public DNSEntry find(string hostname, string cache) {
             Console.WriteLine($"DNS lookup for hostname {hostname}...");
             DNSEntry entry;
 
